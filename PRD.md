@@ -5,7 +5,7 @@
 **AI-Powered Renewable Energy Forecasting for Karnataka** is a decision-support product that delivers 24-hour probabilistic power generation forecasts for utility-scale solar and wind assets in Karnataka. The current implementation includes:
 
 - A FastAPI inference service with a `/forecast` endpoint for generating TFT-based forecasts.
-- A Streamlit dashboard for interactive forecast exploration, uncertainty visualization, and narrative summaries.
+- A React frontend dashboard for interactive forecast exploration, uncertainty visualization, and narrative summaries.
 - A shared inference service that loads a trained Temporal Fusion Transformer checkpoint and featured historical data.
 
 The product is currently optimized for two assets:
@@ -60,11 +60,11 @@ The model response is designed for integration with dashboards and downstream de
 
 ### Dashboard Experience
 
-The Streamlit dashboard provides:
+The React frontend provides:
 
 - asset selection for supported assets
 - forecast date picker
-- in-process or remote API execution
+- remote API execution against the FastAPI backend
 - a time-series chart showing median forecast, uncertainty band, and actual output
 - a benchmark comparison chart for TFT vs persistence and climatology baselines
 - a variable importance chart for encoder and decoder inputs
@@ -128,9 +128,9 @@ The shared inference service:
 ### Architecture and Deployment
 
 - AR1: The backend uses FastAPI and is deployable via `uvicorn api.app:app --reload`.
-- AR2: The dashboard uses Streamlit and is launchable via `streamlit run dashboard/streamlit_app.py`.
+- AR2: The frontend uses a React/Vite app and is launchable via `npm run dev` from `frontend/`.
 - AR3: CORS is enabled for the API with origins controlled by `CORS_ALLOW_ORIGINS`.
-- AR4: The shared backend service should be reusable by both FastAPI and Streamlit.
+- AR4: The shared backend service is reusable by the React frontend.
 
 ## Constraints and Assumptions
 

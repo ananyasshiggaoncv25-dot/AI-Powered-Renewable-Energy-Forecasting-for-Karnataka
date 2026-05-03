@@ -14,20 +14,6 @@ services:
       - .:/app:ro
     command: uvicorn api.app:app --host 0.0.0.0 --port 8000
 
-  dashboard:
-    build: .
-    container_name: karnataka-renewable-dashboard
-    ports:
-      - "8501:8501"
-    depends_on:
-      - api
-    environment:
-      - STREAMLIT_API_BASE=http://api:8000
-      - STREAMLIT_SERVER_HEADLESS=true
-    volumes:
-      - .:/app:ro
-    command: streamlit run dashboard/streamlit_app.py --server.port 8501 --server.address 0.0.0.0 --server.headless true
-
   frontend:
     build:
       context: ./frontend

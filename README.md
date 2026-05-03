@@ -1,11 +1,11 @@
 # AI-Powered Renewable Energy Forecasting for Karnataka
 
-This repository implements a decision-support product for 24-hour probabilistic renewable energy forecasting across Karnataka. The current system combines a FastAPI inference backend with a Streamlit dashboard to provide median and uncertainty-aware generation forecasts for selected solar and wind assets.
+This repository implements a decision-support product for 24-hour probabilistic renewable energy forecasting across Karnataka. The current system combines a FastAPI inference backend with a React frontend to provide median and uncertainty-aware generation forecasts for selected solar and wind assets.
 
 ## What’s included
 
 - **FastAPI backend** with a `/health` endpoint and a `/forecast` endpoint.
-- **Streamlit dashboard** with asset selection, date input, forecast visualization, and narrative summaries.
+- **React frontend** UI implemented in `frontend/`.
 - **Shared inference service** that loads featured data and a trained Temporal Fusion Transformer (TFT) checkpoint.
 - **Baseline comparison** functionality for persistence and climatology models.
 - **Docker deployment artifacts** for Phase 4 operational readiness.
@@ -23,10 +23,12 @@ This repository implements a decision-support product for 24-hour probabilistic 
 uvicorn api.app:app --reload
 ```
 
-### Dashboard
+### Frontend
 
 ```bash
-streamlit run dashboard/streamlit_app.py
+cd frontend
+npm install
+npm run dev
 ```
 
 ## Data and model requirements
@@ -67,16 +69,6 @@ docker run --rm -p 8000:8000 \
   -e CHECKPOINT_GLOB="/app/models/tft_best*.ckpt" \
   karnataka-renewable-forecast \
   uvicorn api.app:app --host 0.0.0.0 --port 8000
-```
-
-### Run the dashboard container
-
-```bash
-docker run --rm -p 8501:8501 \
-  -v "$PWD:/app:ro" \
-  -e STREAMLIT_API_BASE="http://host.docker.internal:8000" \
-  karnataka-renewable-forecast \
-  streamlit run dashboard/streamlit_app.py --server.port 8501 --server.address 0.0.0.0 --server.headless true
 ```
 
 ### Run both services with Docker Compose

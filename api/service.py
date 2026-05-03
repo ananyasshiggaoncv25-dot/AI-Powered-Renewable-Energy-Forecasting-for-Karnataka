@@ -1,5 +1,5 @@
 """
-TFT inference orchestration shared by FastAPI and the Streamlit dashboard.
+TFT inference orchestration shared by FastAPI and the React frontend.
 
 Environment (optional):
 
@@ -231,7 +231,7 @@ def _build_narrative(
     return " ".join(lines)
 
 
-# Shared singleton for API + Streamlit (same process per worker)
+# Shared singleton for API + frontend use (same process per worker)
 _SERVICE: InferenceService | None = None
 
 
