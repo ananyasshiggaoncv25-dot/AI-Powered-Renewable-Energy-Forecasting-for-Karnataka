@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: karnataka-renewable-api
+    ports:
+      - "8000:8000"
+    environment:
+      - CORS_ALLOW_ORIGINS=*
+      - DATA_PATH=/app/data/processed/featured_generation.csv
+      - CHECKPOINT_GLOB=/app/models/tft_best*.ckpt
+    volumes:
+      - .:/app:ro
+    command: uvicorn api.app:app --host 0.0.0.0 --port 8000
+
+  dashboard:
+    build: .
+    container_name: karnataka-renewable-dashboard
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+    environment:
+      - STREAMLIT_API_BASE=http://api:8000
+      - STREAMLIT_SERVER_HEADLESS=true
+    volumes:
+      - .:/app:ro
+    command: streamlit run dashboard/streamlit_app.py --server.port 8501 --server.address 0.0.0.0 --server.headless true
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: karnataka-renewable-frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - api
+    environment:
+      - VITE_API_BASE_URL=http://api:8000
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
+    command: npm run dev -- --host 0.0.0.0 --port 8080
+
+volumes:
+  frontend_node_modules:

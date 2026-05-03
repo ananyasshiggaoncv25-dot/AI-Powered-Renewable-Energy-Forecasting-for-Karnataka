@@ -9,6 +9,7 @@ Ensure featured data and ``models/tft_best*.ckpt`` exist (train TFT first).
 """
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
 
@@ -184,9 +185,15 @@ def main() -> None:
         unsafe_allow_html=True,
     )
 
+    default_api_base = os.environ.get("STREAMLIT_API_BASE", "")
+
     with st.sidebar:
         st.subheader("Controls")
-        api_base = st.text_input("API base URL (empty = in-process)", value="", placeholder="http://127.0.0.1:8000")
+        api_base = st.text_input(
+            "API base URL (empty = in-process)",
+            value=default_api_base or "",
+            placeholder="http://127.0.0.1:8000",
+        )
         asset_id = st.selectbox("Asset", list(ASSET_LABELS.keys()), format_func=lambda k: ASSET_LABELS[k])
         forecast_date = st.date_input("Forecast date", value=pd.Timestamp("2023-06-15").date())
         run = st.button("Run forecast", type="primary")
@@ -195,13 +202,14 @@ def main() -> None:
         st.info("Pick an asset and date, then click **Run forecast**.")
         return
 
+    importance: list[dict[str, object]] = []
     try:
         fd = forecast_date.isoformat()
         if api_base.strip():
             payload = _fetch_via_api(api_base.strip(), asset_id, fd)
         else:
             payload = _forecast_local(asset_id, fd)
-            importance = payload.get("_importance", [])
+        importance = payload.get("_importance", [])
     except Exception as exc:  # noqa: BLE001
         st.error(str(exc))
         return
