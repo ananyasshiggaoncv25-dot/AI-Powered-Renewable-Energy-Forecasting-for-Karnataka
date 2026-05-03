@@ -1,7 +1,12 @@
+import os
+import sys
 import random
 import time
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 # Import the logic you wrote in your other files
-from src.wind_logic import predict_turbine_power
+from wind_logic import predict_turbine_power
 from solar_logic import predict_solar_power
 
 def run_15_minute_loop():

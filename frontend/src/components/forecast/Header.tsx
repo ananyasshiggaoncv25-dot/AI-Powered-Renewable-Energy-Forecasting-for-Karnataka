@@ -2,21 +2,9 @@ import { Zap } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { LanguageToggle } from "./LanguageToggle";
 
-type Tab = 'dashboard' | 'assets' | 'models' | 'reports';
-
-interface HeaderProps {
-  currentTab: Tab;
-  onTabChange: (tab: Tab) => void;
-}
-
-export const Header = ({ currentTab, onTabChange }: HeaderProps) => {
+export const Header = () => {
   const { t } = useI18n();
-  const navKeys: { key: Tab; label: string }[] = [
-    { key: 'dashboard', label: 'nav.dashboard' },
-    { key: 'assets', label: 'nav.assets' },
-    { key: 'models', label: 'nav.models' },
-    { key: 'reports', label: 'nav.reports' },
-  ];
+  const navKeys = ["nav.dashboard", "nav.assets", "nav.models", "nav.reports", "nav.settings"];
   return (
     <header className="border-b border-border bg-card/60 backdrop-blur-md sticky top-0 z-30">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
@@ -30,18 +18,18 @@ export const Header = ({ currentTab, onTabChange }: HeaderProps) => {
           </div>
         </div>
         <nav className="hidden md:flex items-center gap-1 text-sm">
-          {navKeys.map(({ key, label }) => (
-            <button
-              key={key}
-              onClick={() => onTabChange(key)}
+          {navKeys.map((k, i) => (
+            <a
+              key={k}
+              href="#"
               className={
-                currentTab === key
+                i === 0
                   ? "px-3 py-1.5 rounded-lg bg-secondary font-medium"
                   : "px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors"
               }
             >
-              {t(label)}
-            </button>
+              {t(k)}
+            </a>
           ))}
         </nav>
         <div className="flex items-center gap-3">

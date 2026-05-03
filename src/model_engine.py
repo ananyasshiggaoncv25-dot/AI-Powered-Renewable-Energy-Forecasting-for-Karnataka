@@ -33,7 +33,7 @@ class BharatGridAI:
         training_cutoff = df["Time_Index"].max() - max_prediction_length
 
         self.training_ds = TimeSeriesDataSet(
-            df[lambda x: x.Time_Index <= training_cutoff],
+            df[df["Time_Index"] <= training_cutoff],
             time_idx="Time_Index",
             target="Solar_Intensity",
             group_ids=["Group"],
@@ -55,6 +55,9 @@ class BharatGridAI:
         train_loader, val_loader = self.prepare_data()
 
         # Initialize Model
+        if self.training_ds is None:
+            raise RuntimeError("Training dataset not initialized")
+        
         self.model = TemporalFusionTransformer.from_dataset(
             self.training_ds, 
             learning_rate=0.03, 
