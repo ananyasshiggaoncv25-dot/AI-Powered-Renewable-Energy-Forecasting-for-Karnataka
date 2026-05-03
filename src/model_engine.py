@@ -90,7 +90,7 @@ class BharatGridAI:
         # Inference logic goes here
         return "Prediction Data"
 
-# --- HELPER FOR STREAMLIT ---
+# --- HELPER FOR FRONTEND ---
 def run_full_training():
     ai = BharatGridAI()
     metrics = ai.train(epochs=10)

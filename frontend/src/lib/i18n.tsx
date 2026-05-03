@@ -15,6 +15,34 @@ const EN: Dict = {
   "nav.reports": "Reports",
   "nav.settings": "Settings",
 
+  // Assets section
+  "assets.section.title": "Assets Overview",
+  "assets.section.subtitle": "Manage and monitor renewable energy assets across Karnataka",
+  "assets.total": "Total Assets",
+  "assets.solarCount": "Solar Plants",
+  "assets.windCount": "Wind Plants",
+  "assets.totalCapacity": "Total Capacity",
+
+  // Models section
+  "models.section.title": "AI Models",
+  "models.section.subtitle": "Temporal Fusion Transformer models for probabilistic forecasting",
+  "models.tft.title": "TFT Model",
+  "models.tft.description": "Trained on historical data for accurate predictions",
+  "models.accuracy": "Model Accuracy",
+  "models.lastTrained": "Last Trained",
+
+  // Reports section
+  "reports.section.title": "Reports & Analytics",
+  "reports.section.subtitle": "Generate and view forecasting reports",
+  "reports.generate": "Generate Report",
+  "reports.viewPast": "View Past Data",
+  "reports.download": "Download Report",
+
+  // Past Data Graph
+  "pastData.title": "Past Data Visualization",
+  "pastData.subtitle": "Historical generation data and forecasts",
+  "pastData.toggle": "Show Past Data",
+
   // Hero
   "hero.badge": "Unified model · solar + wind · Karnataka grid",
   "hero.title1": "Forecast every megawatt",
@@ -123,6 +151,34 @@ const KN: Dict = {
   "nav.models": "ಮಾದರಿಗಳು",
   "nav.reports": "ವರದಿಗಳು",
   "nav.settings": "ಸಂಯೋಜನೆ",
+
+  // Assets section
+  "assets.section.title": "ಆಸ್ತಿಗಳ ಅವಲೋಕನ",
+  "assets.section.subtitle": "ಕರ್ನಾಟಕದಾದ್ಯಂತ ನವೀಕರಣೀಯ ಶಕ್ತಿ ಆಸ್ತಿಗಳನ್ನು ನಿರ್ವಹಿಸಿ ಮತ್ತು ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡಿ",
+  "assets.total": "ಒಟ್ಟು ಆಸ್ತಿಗಳು",
+  "assets.solarCount": "ಸೌರ ಸ್ಥಾವರಗಳು",
+  "assets.windCount": "ಪವನ ಸ್ಥಾವರಗಳು",
+  "assets.totalCapacity": "ಒಟ್ಟು ಸಾಮರ್ಥ್ಯ",
+
+  // Models section
+  "models.section.title": "AI ಮಾದರಿಗಳು",
+  "models.section.subtitle": "ಸಂಭವನೀಯ ಮುನ್ಸೂಚನೆಗಾಗಿ ಕಾಲಿಕ ಸಮ್ಮಿಲನ ಟ್ರಾನ್ಸ್‌ಫಾರ್ಮರ್ ಮಾದರಿಗಳು",
+  "models.tft.title": "TFT ಮಾದರಿ",
+  "models.tft.description": "ನಿಖರ ಮುನ್ಸೂಚನೆಗಳಿಗಾಗಿ ಇತಿಹಾಸಿಕ ದತ್ತಾಂಶದಲ್ಲಿ ತರಬೇತಿ ನೀಡಲಾಗಿದೆ",
+  "models.accuracy": "ಮಾದರಿ ನಿಖರತೆ",
+  "models.lastTrained": "ಕೊನೆಯ ತರಬೇತಿ",
+
+  // Reports section
+  "reports.section.title": "ವರದಿಗಳು ಮತ್ತು ವಿಶ್ಲೇಷಣೆ",
+  "reports.section.subtitle": "ಮುನ್ಸೂಚನೆ ವರದಿಗಳನ್ನು ಉತ್ಪಾದಿಸಿ ಮತ್ತು ವೀಕ್ಷಿಸಿ",
+  "reports.generate": "ವರದಿ ಉತ್ಪಾದಿಸಿ",
+  "reports.viewPast": "ಹಿಂದಿನ ದತ್ತಾಂಶ ವೀಕ್ಷಿಸಿ",
+  "reports.download": "ವರದಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
+
+  // Past Data Graph
+  "pastData.title": "ಹಿಂದಿನ ದತ್ತಾಂಶ ದೃಶ್ಯೀಕರಣ",
+  "pastData.subtitle": "ಇತಿಹಾಸಿಕ ಉತ್ಪಾದನೆ ದತ್ತಾಂಶ ಮತ್ತು ಮುನ್ಸೂಚನೆಗಳು",
+  "pastData.toggle": "ಹಿಂದಿನ ದತ್ತಾಂಶ ತೋರಿಸಿ",
 
   "hero.badge": "ಏಕೀಕೃತ ಮಾದರಿ · ಸೌರ + ಪವನ · ಕರ್ನಾಟಕ ಗ್ರಿಡ್",
   "hero.title1": "ಪ್ರತಿ ಮೆಗಾವಾಟ್‌ನ ಮುನ್ಸೂಚನೆ",
