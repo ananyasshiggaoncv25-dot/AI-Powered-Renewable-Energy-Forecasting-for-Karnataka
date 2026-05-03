@@ -1,0 +1,1 @@
+# AI-Powered-Renewable-Energy-Forecasting-for-Karnataka
