@@ -136,4 +136,4 @@ This project roadmap includes a Phase 4 focus on making the forecasting system o
 
 The current codebase assumes offline data preparation and model training. The API and dashboard are designed for evaluation and decision support rather than a fully packaged production deployment.
 
-(To clarify about the other contributor,that was is my personal git account) 
+(To clarify about the other contributor,that is my personal git account) 
