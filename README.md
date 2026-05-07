@@ -77,6 +77,36 @@ docker run --rm -p 8000:8000 \
 docker compose up --build
 ```
 
+## Netlify deployment
+
+For deploying the frontend to Netlify (static hosting) and API to a separate service:
+
+### Frontend deployment
+1. **Connect to Netlify**: Link your GitHub repo or drag-drop the `frontend/` folder.
+2. **Build settings** (auto-detected from `netlify.toml`):
+   - Build command: `npm run build`
+   - Publish directory: `dist`
+   - Node version: 20
+3. **Environment variables** in Netlify dashboard:
+   - `VITE_API_BASE_URL`: Set to your deployed API URL (e.g., `https://your-api.onrender.com`)
+4. **SPA redirects**: Handled by `netlify.toml` (serves `index.html` for all routes).
+
+### API deployment
+Deploy the API to a service that supports Docker or Python:
+- **Railway**: Connect GitHub repo, set build command `docker build .`, start command `uvicorn api.app:app --host 0.0.0.0 --port $PORT`
+- **Render**: Use Docker, set environment variables.
+- **Heroku**: Use Python buildpack or Docker.
+
+Required environment variables for API:
+- `CORS_ALLOW_ORIGINS`: Include your Netlify domain (e.g., `https://your-site.netlify.app`)
+- `DATA_PATH`: Path to featured data (upload or mount)
+- `CHECKPOINT_GLOB`: Path to model checkpoint
+
+### Full deployment steps
+1. Deploy API first, note the URL.
+2. Deploy frontend to Netlify, set `VITE_API_BASE_URL` to API URL.
+3. Test the deployed site.
+
 ## Current capabilities
 
 - Hourly probabilistic forecasts with `P10`, `P50`, `P90`, and actual output.
