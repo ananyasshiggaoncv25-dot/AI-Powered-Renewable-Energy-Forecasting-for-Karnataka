@@ -18,14 +18,7 @@ import {
   Horizon,
   computeStats,
   generateForecast,
-  type ForecastPoint,
 } from "@/lib/forecast-data";
-import {
-  fetchForecast,
-  getApiBaseUrl,
-  getBackendAssetId,
-  hourlyToForecastPoints,
-} from "@/lib/forecast-api";
 import { useI18n } from "@/lib/i18n";
 import { toast } from "@/hooks/use-toast";
 
@@ -34,19 +27,15 @@ const TICK_MS = 1000;
 
 const Index = () => {
   const { t } = useI18n();
-  const apiBase = getApiBaseUrl();
   const [district, setDistrict] = useState<District | "all">("all");
   const [filter, setFilter] = useState<AssetType | "all">("all");
   const [selectedId, setSelectedId] = useState(ASSETS[0].id);
   const [horizon, setHorizon] = useState<Horizon>("intra-day");
-  const [forecastDate, setForecastDate] = useState("2023-06-15");
 
   const [revision, setRevision] = useState(0);
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [lastUpdated, setLastUpdated] = useState(() => new Date());
   const [nextInMs, setNextInMs] = useState(REFRESH_INTERVAL_MS);
-  const [apiLivePoints, setApiLivePoints] = useState<ForecastPoint[] | null>(null);
-  const [apiPrevPoints, setApiPrevPoints] = useState<ForecastPoint[] | null>(null);
 
   // District counts for the chip filter
   const districtCounts = useMemo(() => {
@@ -76,49 +65,18 @@ const Index = () => {
     [selectedId]
   );
 
-  const backendAssetId = getBackendAssetId(asset.id);
-  const useTftApi = Boolean(apiBase && backendAssetId);
-
-  const mockSeries = useMemo(
+  // Forecast for the current revision + previous revision (for delta highlighting)
+  const data = useMemo(
     () => generateForecast(asset, horizon, 14, revision),
     [asset, horizon, revision]
   );
-
-  useEffect(() => {
-    if (!apiBase || !backendAssetId) {
-      setApiLivePoints(null);
-      setApiPrevPoints(null);
-      return;
-    }
-    const ac = new AbortController();
-    (async () => {
-      try {
-        const json = await fetchForecast(apiBase, backendAssetId, forecastDate, ac.signal);
-        const pts = hourlyToForecastPoints(json.hourly, asset);
-        setApiLivePoints((old) => {
-          setApiPrevPoints(old);
-          return pts;
-        });
-      } catch (err: unknown) {
-        if (ac.signal.aborted) return;
-        const msg = err instanceof Error ? err.message : String(err);
-        toast({ title: "Forecast API", description: msg, variant: "destructive" });
-        setApiLivePoints(null);
-        setApiPrevPoints(null);
-      }
-    })();
-    return () => ac.abort();
-  }, [apiBase, backendAssetId, forecastDate, revision, asset.id, asset.type, asset.capacity]);
-
-  // TFT-backed assets use API quantiles when configured; others stay mock.
-  const data = useTftApi && apiLivePoints !== null ? apiLivePoints : mockSeries;
-
-  const prevData = useMemo(() => {
-    if (useTftApi) {
-      return apiPrevPoints !== null ? apiPrevPoints : data;
-    }
-    return revision === 0 ? mockSeries : generateForecast(asset, horizon, 14, revision - 1);
-  }, [useTftApi, apiPrevPoints, data, revision, mockSeries, asset, horizon]);
+  const prevData = useMemo(
+    () =>
+      revision === 0
+        ? data
+        : generateForecast(asset, horizon, 14, revision - 1),
+    [asset, horizon, revision, data]
+  );
 
   const stats = useMemo(() => computeStats(data, asset.capacity), [data, asset]);
   const prevStats = useMemo(
@@ -200,49 +158,19 @@ const Index = () => {
                 <Sparkles className="h-3.5 w-3.5" />
                 <span>{t("hero.badge")}</span>
               </div>
-              <h1 className="font-display text-4xl lg:text-5xl font-semibold leading-[1.05] tracking-tight">
-                {t("hero.title1")}
-                <span className="block text-muted-foreground font-normal italic">
-                  {t("hero.title2")}
-                </span>
-              </h1>
-              <p className="mt-4 text-base text-muted-foreground leading-relaxed max-w-xl">
-                {t("hero.subtitle")}
-              </p>
             </div>
-            <div className="flex flex-col items-stretch sm:items-end gap-3">
-              {apiBase && backendAssetId ? (
-                <label className="flex flex-col gap-1.5 text-xs text-muted-foreground w-full sm:w-auto sm:min-w-[200px]">
-                  <span className="font-medium uppercase tracking-wide text-[10px]">
-                    TFT forecast date
-                  </span>
-                  <input
-                    type="date"
-                    min="2022-01-03"
-                    max="2023-12-30"
-                    value={forecastDate}
-                    onChange={(e) => setForecastDate(e.target.value)}
-                    className="rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm"
-                  />
-                </label>
-              ) : null}
-              <div className="flex items-center gap-3">
-                <RefreshControl
-                  enabled={autoRefresh}
-                  onToggle={() => setAutoRefresh((v) => !v)}
-                  onRefresh={() => triggerRefresh(false)}
-                  lastUpdated={lastUpdated}
-                  nextInMs={nextInMs}
-                  intervalMs={REFRESH_INTERVAL_MS}
-                />
-                <button
-                  type="button"
-                  onClick={() => triggerRefresh(false)}
-                  className="px-4 py-2.5 text-sm font-medium rounded-xl bg-gradient-hero text-primary-foreground shadow-elevated hover:shadow-glow transition-all"
-                >
-                  {t("hero.runPrediction")}
-                </button>
-              </div>
+            <div className="flex items-center gap-3">
+              <RefreshControl
+                enabled={autoRefresh}
+                onToggle={() => setAutoRefresh((v) => !v)}
+                onRefresh={() => triggerRefresh(false)}
+                lastUpdated={lastUpdated}
+                nextInMs={nextInMs}
+                intervalMs={REFRESH_INTERVAL_MS}
+              />
+              <button className="px-4 py-2.5 text-sm font-medium rounded-xl bg-gradient-hero text-primary-foreground shadow-elevated hover:shadow-glow transition-all">
+                {t("hero.runPrediction")}
+              </button>
             </div>
           </div>
         </section>
@@ -343,11 +271,6 @@ const Index = () => {
                     )}
                   </span>
                   <h2 className="font-display text-xl font-semibold">{asset.name}</h2>
-                  {useTftApi && apiLivePoints !== null ? (
-                    <span className="ml-2 text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
-                      TFT API
-                    </span>
-                  ) : null}
                   {revision > 0 && (
                     <span className="ml-2 text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
                       {t("chart.rev")} {revision}

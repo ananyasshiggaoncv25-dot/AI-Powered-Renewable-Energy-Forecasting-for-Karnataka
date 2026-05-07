@@ -82,7 +82,7 @@ export const KarnatakaMap = ({ selectedId, onSelect, districtFilter }: Props) =>
                   "transition-opacity duration-200",
                   dim ? "opacity-25" : "opacity-100"
                 )}
-                aria-label={a.name}
+                aria-label={tt(`asset.${a.id}`) || a.name}
               >
                 {active && (
                   <span
@@ -110,7 +110,7 @@ export const KarnatakaMap = ({ selectedId, onSelect, districtFilter }: Props) =>
                   ) : (
                     <Wind className="h-2.5 w-2.5 text-wind" />
                   )}
-                  {a.name}
+                  {tt(`asset.${a.id}`) || a.name}
                 </span>
               </button>
             );

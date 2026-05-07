@@ -6,7 +6,7 @@ type Dict = Record<string, string>;
 
 const EN: Dict = {
   // Header
-  "header.brand": "Aether Energy",
+  "header.brand": "K-Grid Pulse",
   "header.tagline": "Probabilistic forecasting",
   "header.modelsLive": "Models live",
   "nav.dashboard": "Dashboard",
@@ -14,6 +14,8 @@ const EN: Dict = {
   "nav.models": "Models",
   "nav.reports": "Reports",
   "nav.settings": "Settings",
+  "nav.comingSoon": "Coming soon",
+  "nav.comingSoonDesc": "{section} workspace is being prepared.",
 
   // Hero
   "hero.badge": "Unified model · solar + wind · Karnataka grid",
@@ -72,6 +74,12 @@ const EN: Dict = {
   "map.subtitle": "Click a marker to load its forecast",
   "map.solar": "Solar",
   "map.wind": "Wind",
+  "asset.sol-pavagada-01": "Pavagada Solar Park",
+  "asset.sol-kalaburagi-02": "Kalaburagi PV Field",
+  "asset.sol-koppal-03": "Koppal Solar Plant",
+  "asset.win-chitradurga-01": "Chitradurga Wind Farm",
+  "asset.win-gadag-02": "Kappatagudda Wind Farm",
+  "asset.win-bellary-03": "Sandur Ridge Wind",
 
   // Chart
   "chart.peak": "Peak generation",
@@ -105,7 +113,7 @@ const EN: Dict = {
     "IMD station data blended with ECMWF forecasts, downscaled to plant coordinates in Karnataka.",
 
   // Footer
-  "footer.copyright": "© 2026 Aether Energy · Karnataka generation forecasting",
+  "footer.copyright": "© 2026 K-Grid Pulse · Karnataka generation forecasting",
   "footer.lastTraining": "Last training: 6h ago · Revision {rev} · Updated {time}",
 
   // Language
@@ -115,7 +123,7 @@ const EN: Dict = {
 };
 
 const KN: Dict = {
-  "header.brand": "ಏಥರ್ ಎನರ್ಜಿ",
+  "header.brand": "ಕೆ-ಗ್ರಿಡ್ ಪಲ್ಸ್",
   "header.tagline": "ಸಂಭವನೀಯ ಮುನ್ಸೂಚನೆ",
   "header.modelsLive": "ಮಾದರಿಗಳು ಸಕ್ರಿಯ",
   "nav.dashboard": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
@@ -123,6 +131,8 @@ const KN: Dict = {
   "nav.models": "ಮಾದರಿಗಳು",
   "nav.reports": "ವರದಿಗಳು",
   "nav.settings": "ಸಂಯೋಜನೆ",
+  "nav.comingSoon": "ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ",
+  "nav.comingSoonDesc": "{section} ಕಾರ್ಯಕ್ಷೇತ್ರವನ್ನು ಸಿದ್ಧಪಡಿಸಲಾಗುತ್ತಿದೆ.",
 
   "hero.badge": "ಏಕೀಕೃತ ಮಾದರಿ · ಸೌರ + ಪವನ · ಕರ್ನಾಟಕ ಗ್ರಿಡ್",
   "hero.title1": "ಪ್ರತಿ ಮೆಗಾವಾಟ್‌ನ ಮುನ್ಸೂಚನೆ",
@@ -174,6 +184,12 @@ const KN: Dict = {
   "map.subtitle": "ಮುನ್ಸೂಚನೆ ಲೋಡ್ ಮಾಡಲು ಗುರುತು ಒತ್ತಿರಿ",
   "map.solar": "ಸೌರ",
   "map.wind": "ಪವನ",
+  "asset.sol-pavagada-01": "ಪಾವಗಡ ಸೌರ ಉದ್ಯಾನ",
+  "asset.sol-kalaburagi-02": "ಕಲಬುರಗಿ ಪಿವಿ ಕ್ಷೇತ್ರ",
+  "asset.sol-koppal-03": "ಕೊಪ್ಪಳ ಸೌರ ಸ್ಥಾವರ",
+  "asset.win-chitradurga-01": "ಚಿತ್ರದುರ್ಗ ಪವನ ಫಾರ್ಮ್",
+  "asset.win-gadag-02": "ಕಪ್ಪತಗುಡ್ಡ ಪವನ ಫಾರ್ಮ್",
+  "asset.win-bellary-03": "ಸಂಡೂರ್ ರಿಡ್ಜ್ ಪವನ",
 
   "chart.peak": "ಗರಿಷ್ಠ ಉತ್ಪಾದನೆ",
   "chart.uncertainty": "ಅನಿಶ್ಚಿತತೆ (ಸರಾಸರಿ)",

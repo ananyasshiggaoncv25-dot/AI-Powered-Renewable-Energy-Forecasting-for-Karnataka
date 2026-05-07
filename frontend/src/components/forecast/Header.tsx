@@ -1,10 +1,35 @@
+import { useState } from "react";
 import { Zap } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { LanguageToggle } from "./LanguageToggle";
+import { toast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
+
+const NAV = [
+  { key: "nav.dashboard", id: "dashboard" },
+  { key: "nav.assets", id: "assets" },
+  { key: "nav.models", id: "models" },
+  { key: "nav.reports", id: "reports" },
+  { key: "nav.settings", id: "settings" },
+] as const;
 
 export const Header = () => {
   const { t } = useI18n();
-  const navKeys = ["nav.dashboard", "nav.assets", "nav.models", "nav.reports", "nav.settings"];
+  const [active, setActive] = useState<string>("dashboard");
+
+  const handleClick = (e: React.MouseEvent, id: string, label: string) => {
+    e.preventDefault();
+    setActive(id);
+    if (id === "dashboard") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    toast({
+      title: t("nav.comingSoon"),
+      description: t("nav.comingSoonDesc", { section: label }),
+    });
+  };
+
   return (
     <header className="border-b border-border bg-card/60 backdrop-blur-md sticky top-0 z-30">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
@@ -18,19 +43,24 @@ export const Header = () => {
           </div>
         </div>
         <nav className="hidden md:flex items-center gap-1 text-sm">
-          {navKeys.map((k, i) => (
-            <a
-              key={k}
-              href="#"
-              className={
-                i === 0
-                  ? "px-3 py-1.5 rounded-lg bg-secondary font-medium"
-                  : "px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors"
-              }
-            >
-              {t(k)}
-            </a>
-          ))}
+          {NAV.map(({ key, id }) => {
+            const label = t(key);
+            return (
+              <a
+                key={key}
+                href="#"
+                onClick={(e) => handleClick(e, id, label)}
+                className={cn(
+                  "px-3 py-1.5 rounded-lg transition-colors",
+                  active === id
+                    ? "bg-secondary font-medium text-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
+                )}
+              >
+                {label}
+              </a>
+            );
+          })}
         </nav>
         <div className="flex items-center gap-3">
           <LanguageToggle />
