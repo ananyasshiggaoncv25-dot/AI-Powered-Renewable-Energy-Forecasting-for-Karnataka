@@ -23,7 +23,7 @@ const DISTRICT_ANCHORS: Record<District, { x: number; y: number }> = {
 
 // Small offsets so multiple assets in the same district don't fully overlap
 const ASSET_OFFSETS: Record<string, { dx: number; dy: number }> = {
-  "sol-pavagada-01":   { dx: 1.5,  dy: 2.5 },
+  "sol-pavagada-01":   { dx: 11,  dy: -13 },
   "sol-kalaburagi-02": { dx: 0,    dy: 0 },
   "sol-koppal-03":     { dx: 0,    dy: 0 },
   "win-chitradurga-01":{ dx: 0,    dy: 0 },
